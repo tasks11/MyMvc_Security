@@ -7,6 +7,7 @@ import web.model.User;
 
 import java.util.List;
 
+@org.springframework.stereotype.Service
 public class ServiceImpl implements Service {
 
     @Autowired

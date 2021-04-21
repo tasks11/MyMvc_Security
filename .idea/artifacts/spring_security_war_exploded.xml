@@ -25,7 +25,6 @@
           <element id="library" level="project" name="Maven: org.thymeleaf:thymeleaf:3.0.9.RELEASE" />
           <element id="library" level="project" name="Maven: org.attoparser:attoparser:2.0.4.RELEASE" />
           <element id="library" level="project" name="Maven: org.unbescape:unbescape:1.1.5.RELEASE" />
-          <element id="library" level="project" name="Maven: org.slf4j:slf4j-api:1.7.25" />
           <element id="library" level="project" name="Maven: mysql:mysql-connector-java:8.0.13" />
           <element id="library" level="project" name="Maven: com.google.protobuf:protobuf-java:3.6.1" />
           <element id="library" level="project" name="Maven: org.springframework:spring-orm:5.3.4" />
@@ -74,6 +73,10 @@
           <element id="library" level="project" name="Maven: org.jetbrains.kotlin:kotlin-stdlib:1.3.61" />
           <element id="library" level="project" name="Maven: org.jetbrains.kotlin:kotlin-stdlib-common:1.3.61" />
           <element id="library" level="project" name="Maven: org.jetbrains:annotations:13.0" />
+          <element id="library" level="project" name="Maven: org.slf4j:slf4j-api:1.7.30" />
+          <element id="library" level="project" name="Maven: org.slf4j:slf4j-simple:1.7.30" />
+          <element id="library" level="project" name="Maven: org.apache.tomcat:tomcat-dbcp:9.0.1" />
+          <element id="library" level="project" name="Maven: org.apache.tomcat:tomcat-juli:9.0.1" />
         </element>
       </element>
       <element id="directory" name="META-INF">

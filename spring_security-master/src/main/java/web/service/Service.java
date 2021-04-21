@@ -5,6 +5,7 @@ import web.model.User;
 
 import java.util.List;
 
+@org.springframework.stereotype.Service
 public interface Service {
 
     List<Role> getAllRole();

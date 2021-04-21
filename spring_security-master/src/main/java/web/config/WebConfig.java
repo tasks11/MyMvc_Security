@@ -36,11 +36,8 @@ public class WebConfig implements WebMvcConfigurer {
 
     private final ApplicationContext applicationContext;
 
-    private final Environment environment;
-
     public WebConfig(ApplicationContext applicationContext, Environment environment) {
         this.applicationContext = applicationContext;
-        this.environment = environment;
     }
 
 
@@ -68,36 +65,4 @@ public class WebConfig implements WebMvcConfigurer {
         resolver.setTemplateEngine(templateEngine());
         registry.viewResolver(resolver);
     }
-
-    @Bean
-    public DataSource getDatasource() {
-        DriverManagerDataSource dataSource = new DriverManagerDataSource();
-        dataSource.setDriverClassName(environment.getProperty("db.driver"));
-        dataSource.setUrl(environment.getProperty("db.url"));
-        dataSource.setUsername(environment.getProperty("db.username"));
-        dataSource.setPassword(environment.getProperty("db.password"));
-        return dataSource;
-    }
-
-    @Bean
-    public LocalSessionFactoryBean getSessionFactory() {
-        LocalSessionFactoryBean sessionFactoryBean = new LocalSessionFactoryBean();
-        sessionFactoryBean.setDataSource(getDatasource());
-        Properties properties = new Properties();
-        properties.put("dialect", environment.getProperty("dialect"));
-        properties.put("hibernate.show_sql", environment.getProperty("hibernate.show_sql"));
-        properties.put("hibernate.hbm2ddl.auto", environment.getProperty("hibernate.hbm2ddl.auto"));
-        sessionFactoryBean.setHibernateProperties(properties);
-        sessionFactoryBean.setAnnotatedClasses(User.class, Role.class);
-        return sessionFactoryBean;
-    }
-
-    @Bean
-    public PlatformTransactionManager transactionManager(EntityManagerFactory managerFactory) {
-        JpaTransactionManager transactionManager = new JpaTransactionManager();
-        transactionManager.setEntityManagerFactory(managerFactory);
-        return transactionManager;
-    }
-
-
 }
