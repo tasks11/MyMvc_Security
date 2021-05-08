@@ -9,7 +9,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "user")
-public class User implements UserDetails{
+public class User implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,10 +24,8 @@ public class User implements UserDetails{
     @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.REFRESH, CascadeType.MERGE})
     @JoinTable(name = "user_role", joinColumns = {@JoinColumn(name = "user_id")},
             inverseJoinColumns = @JoinColumn(name = "role_id"))
-    private Set <Role> roles;
-
-    @Transient
-    private String role;
+    //связь таблиц JoinColumn - владеющая сторона (создает связующею таблицу)
+    private Set<Role> roles;
 
     public User() {}
 
@@ -40,12 +38,6 @@ public class User implements UserDetails{
         this.name = name;
         this.password = password;
         this.roles = roles;
-    }
-
-    public User(String name, String password, String role) {
-        this.name = name;
-        this.password = password;
-        this.role = role;
     }
 
     public Set<Role> getRoles() {
@@ -72,7 +64,6 @@ public class User implements UserDetails{
         this.name = name;
     }
 
-    public String getRole() { return role; }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
