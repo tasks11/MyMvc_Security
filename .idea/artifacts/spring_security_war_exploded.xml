@@ -76,6 +76,7 @@
           <element id="library" level="project" name="Maven: org.jetbrains:annotations:13.0" />
           <element id="library" level="project" name="Maven: org.apache.tomcat:tomcat-dbcp:9.0.1" />
           <element id="library" level="project" name="Maven: org.apache.tomcat:tomcat-juli:9.0.1" />
+          <element id="library" level="project" name="Maven: jstl:jstl:1.2" />
         </element>
       </element>
       <element id="directory" name="META-INF">

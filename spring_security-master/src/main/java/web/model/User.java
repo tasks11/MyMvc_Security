@@ -34,6 +34,10 @@ public class User implements UserDetails {
         this.password = password;
     }
 
+    public User(User user, String role) {
+
+    }
+
     public User(String name, String password, Set<Role> roles) {
         this.name = name;
         this.password = password;
@@ -101,6 +105,16 @@ public class User implements UserDetails {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", password='" + password + '\'' +
+                ", roles=" + roles +
+                '}';
     }
 
 }

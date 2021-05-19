@@ -1,19 +1,25 @@
 package web.dao;
 
+import org.hibernate.Query;
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import web.model.Role;
 import web.model.User;
 
+import javax.persistence.TypedQuery;
 import java.util.List;
 
 @Repository
 public class DaoImpl implements Dao {
 
-    @Autowired
-    private SessionFactory sessionFactory;
+    private final SessionFactory sessionFactory;
 
+    public DaoImpl(SessionFactory sessionFactory) {
+        this.sessionFactory = sessionFactory;
+    }
 
     @Override
     public List<Role> getAllRole() {
@@ -22,22 +28,37 @@ public class DaoImpl implements Dao {
 
     @Override
     public List<User> getAllUser() {
-        return null;
+        TypedQuery<User> query = sessionFactory.getCurrentSession().createQuery("from User");
+        return query.getResultList();
     }
 
     @Override
     public User findByUsername(String name) {
-        return null;
+        Session session = sessionFactory.openSession();
+        Transaction transaction = session.beginTransaction();
+        User user = null;
+        try {
+            String hql = ("FROM User where name='" + name + "'");
+            Query query = session.createQuery(hql);
+            user = (User) query.uniqueResult();
+            System.out.println(user);
+            transaction.commit();
+        } catch (Exception e) {
+            transaction.rollback();
+        } finally {
+            session.close();
+        }
+        return user;
     }
 
     @Override
     public void addUser(User user) {
-
+        sessionFactory.getCurrentSession().save(user);
     }
 
     @Override
     public void addRoles(Role role) {
-
+        sessionFactory.getCurrentSession().save(role);
     }
 
     @Override
@@ -52,6 +73,8 @@ public class DaoImpl implements Dao {
 
     @Override
     public User getById(long id) {
-        return null;
+        User user =  sessionFactory.getCurrentSession().get(User.class, id);
+        return user;
     }
+
 }
