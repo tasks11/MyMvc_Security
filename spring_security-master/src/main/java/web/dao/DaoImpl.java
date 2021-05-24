@@ -4,7 +4,6 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import web.model.Role;
 import web.model.User;
@@ -23,7 +22,8 @@ public class DaoImpl implements Dao {
 
     @Override
     public List<Role> getAllRole() {
-        return null;
+        TypedQuery<Role> query = sessionFactory.getCurrentSession().createQuery("from Role");
+        return query.getResultList();
     }
 
     @Override
@@ -63,12 +63,12 @@ public class DaoImpl implements Dao {
 
     @Override
     public void deleteUser(User user) {
-
+        sessionFactory.getCurrentSession().delete(user);
     }
 
     @Override
     public void editUser(User user) {
-
+        sessionFactory.getCurrentSession().update(user);
     }
 
     @Override

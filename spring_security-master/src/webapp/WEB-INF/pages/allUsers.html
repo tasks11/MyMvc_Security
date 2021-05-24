@@ -1,14 +1,15 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8" />
+    <meta charset="UTF-8"/>
     <title>users</title>
     <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
 </head>
 <body>
-<h1>Information user</h1>
+<h1>All users</h1>
+<h2><a href="/admin/add">Add New User</a></h2><br>
 <br/><br/>
-<div>
+<div align="center">
     <table border="1">
         <tr>
             <th>Id</th>
@@ -16,11 +17,16 @@
             <th>Password</th>
             <th>Role</th>
         </tr>
-        <tr th:each ="user : ${users}">
+        <tr th:each="user : ${all}">
             <td th:utext="${user.id}">...</td>
             <td th:utext="${user.name}">...</td>
             <td th:utext="${user.password}">...</td>
             <td th:each="role : ${user.roles}" th:text="${role.role}"></td>
+            <td><a th:href="@{/admin/edit/{id}(id=${user.id})}"
+                   class="btn btn-info editButton">Edit</a></td>
+            <td><a th:href="@{/admin/delete/{id}(id=${user.id})}"
+                   class="btn btn-danger deleteButton">Delete</a>
+            </td>
         </tr>
     </table>
     <form action="/logout" method="post">

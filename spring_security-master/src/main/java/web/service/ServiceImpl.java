@@ -1,6 +1,5 @@
 package web.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import web.dao.Dao;
 import web.model.Role;
 import web.model.User;
@@ -26,11 +25,13 @@ public class ServiceImpl implements Service {
         this.dao = dao;
     }
 
+    @Transactional
     @Override
     public List<Role> getAllRole() {
         return dao.getAllRole();
     }
 
+    @Transactional
     @Override
     public List<User> getAllUser() {
         return dao.getAllUser();
@@ -55,9 +56,12 @@ public class ServiceImpl implements Service {
         dao.deleteUser(user);
     }
 
+    @Transactional
     @Override
     public void editUser(User user, String role) {
-
+        Set<Role> set = new HashSet<>();
+        User user1 = intermediate(user, role, set);
+        dao.editUser(user1);
     }
 
     @Transactional
