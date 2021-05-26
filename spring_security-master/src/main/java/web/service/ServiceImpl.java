@@ -12,13 +12,6 @@ import java.util.Set;
 @org.springframework.stereotype.Service
 public class ServiceImpl implements Service {
 
-    private final Role role_1 = new Role("ROLE_ADMIN");
-    private final Role role_2 = new Role("ROLE_USER");
-    private final Role role_3 = new Role("ROLE_ADMIN,ROLE_USER");
-    private final User user = new User("1", "1");
-    private final User user2 = new User("2", "2");
-    private final User user3 = new User("3", "3");
-
     private final Dao dao;
 
     public ServiceImpl(Dao dao) {
@@ -45,9 +38,11 @@ public class ServiceImpl implements Service {
     @Transactional
     @Override
     public void addUser(User user, String role) {
+        Role roleUser = new Role(role);
         Set<Role> set = new HashSet<>();
-        User user1 = intermediate(user, role, set);
-        dao.addUser(user1);
+        set.add(roleUser);
+        user.setRoles(set);
+        dao.addUser(user);
     }
 
     @Transactional
@@ -59,9 +54,11 @@ public class ServiceImpl implements Service {
     @Transactional
     @Override
     public void editUser(User user, String role) {
+        Role roleUser = new Role(role);
         Set<Role> set = new HashSet<>();
-        User user1 = intermediate(user, role, set);
-        dao.editUser(user1);
+        set.add(roleUser);
+        user.setRoles(set);
+        dao.editUser(user);
     }
 
     @Transactional
@@ -70,31 +67,33 @@ public class ServiceImpl implements Service {
         return dao.getById(id);
     }
 
-    private User intermediate(User user, String role, Set<Role> set) {
-        if (role_3.getRole().equals(role)) {
-            set.add(role_1);
-            set.add(role_2);
-            user.setRoles(set);
-        }
-        if (role_1.getRole().equals(role)) {
-            set.add(role_1);
-            user.setRoles(set);
-        }
-        if (role_2.getRole().equals(role)) {
-            set.add(role_2);
-            user.setRoles(set);
-        }
-        return user;
-    }
+//    private User intermediate(User user, String role, Set<Role> set) {
+//        if (role_3.getRole().equals(role)) {
+//            set.add(role_1);
+//            set.add(role_2);
+//            user.setRoles(set);
+//        }
+//        if (role_1.getRole().equals(role)) {
+//            set.add(role_1);
+//            user.setRoles(set);
+//        }
+//        if (role_2.getRole().equals(role)) {
+//            set.add(role_2);
+//            user.setRoles(set);
+//        }
+//        return user;
+//    }
 
     @Transactional
     @Override
     public void init() {
+        Role role_1 = new Role("ROLE_ADMIN");
+        Role role_2 = new Role("ROLE_USER");
         dao.addRoles(role_1);
         dao.addRoles(role_2);
-        addUser(user, role_3.getRole());
-        addUser(user2, role_2.getRole());
-        addUser(user3, role_2.getRole());
+        addUser(new User("1", "1"), role_1.getRole());
+        addUser(new User("2", "2"), role_2.getRole());
+        addUser(new User("3", "3"), role_2.getRole());
     }
 
 }
