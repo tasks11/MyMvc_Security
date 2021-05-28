@@ -50,10 +50,7 @@ public class AdminController {
 
     @GetMapping("/delete/{id}")
     public String deleteUser(@ModelAttribute("user") User users) {
-        User user = service.getById(users.getId());
-        if (user != null) {
-            service.deleteUser(user);
-        }
+        service.deleteUser(users.getId());
         return "redirect:/admin";
     }
 

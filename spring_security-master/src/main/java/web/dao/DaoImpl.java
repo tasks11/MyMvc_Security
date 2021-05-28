@@ -9,6 +9,7 @@ import web.model.Role;
 import web.model.User;
 
 import javax.persistence.TypedQuery;
+import java.awt.geom.QuadCurve2D;
 import java.util.List;
 
 @Repository
@@ -62,8 +63,10 @@ public class DaoImpl implements Dao {
     }
 
     @Override
-    public void deleteUser(User user) {
-        sessionFactory.getCurrentSession().delete(user);
+    public void deleteUser(Long id) {
+        Query query = sessionFactory.getCurrentSession().createQuery("delete from User where id = :id ");
+        query.setLong("id", id);
+        query.executeUpdate();
     }
 
     @Override

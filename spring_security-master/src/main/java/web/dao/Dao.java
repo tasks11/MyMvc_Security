@@ -14,7 +14,7 @@ public interface Dao {
     User findByUsername(String name);
     void addUser(User user);
     void addRoles(Role role);
-    void deleteUser(User user);
+    void deleteUser(Long id);
     void editUser(User user);
     User getById(long id);
 }

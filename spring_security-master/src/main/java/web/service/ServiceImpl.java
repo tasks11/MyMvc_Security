@@ -47,8 +47,8 @@ public class ServiceImpl implements Service {
 
     @Transactional
     @Override
-    public void deleteUser(User user) {
-        dao.deleteUser(user);
+    public void deleteUser(Long id) {
+       dao.deleteUser(id);
     }
 
     @Transactional
